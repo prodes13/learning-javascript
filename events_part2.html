@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Javascript events</title>
+<style>
+body {
+    font-family: "helvetica neue";
+    color: #666;
+    padding: 0 20%;
+    }
+li input {
+    display: none;
+}
+li.edit span {
+    display: none;
+}
+li.edit input {
+    display: initial;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Javascript Events/h1>
+</header>
+<main>
+<ul id = "checklist">
+    <li><span>Apples</span>
+        <input type = "text" value = "Apples"/>
+    </li>
+    <li> <span>Oranges</span>
+        <input type = "text" value="Oranges" />
+    </li>
+    <li>
+        <span>Bananas</span>
+        <input type = "text" value="Bananas" />
+    </li>
+</ul>
+</main>
+<script>
+    var checklist = document.getElementById("checklist");
+    var items = checklist.querySelectorAll("li");
+    var inputs = checklist.querySelectorAll("input");
+
+    for(var i=0; i < items.length; i++) {
+        items[i].addEventListener("click", editItem);
+        inputs[i].addEventListener("blur", updateItem);
+    }
+    function editItem() {
+        this.className = "edit";
+        var input = this.querySelector("input");
+        input.focus();
+        input.setSelectionRange(0, input.value.length);
+    }
+    function updateItem() {
+        this.previousElementSibling.innerHTML = this.value;
+        this.parentNode.className = "";
+    }
+    function itemKeypress(event) {
+        if(event.which === 13) {
+            updateItem.call(this);
+    }
+    }
+</script>
+</body>
+</html>
+
