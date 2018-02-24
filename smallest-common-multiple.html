@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smallest common multiple</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<p id = "data"></p>
+
+<script>
+var output = document.getElementById("data");
+
+function smallestCommons(arr) {
+	var min = Math.min(arr[0], arr[1]);
+	var max = Math.max(arr[0], arr[1]);
+	var range = [];
+	for( var i=min; i<= max; i++) {
+		range.push(i);
+	}
+	var a = range[0];
+	for(var i = 1; i<range.length; i++) {
+		var b = range[i];
+		var c = a;
+		while(a && b) {
+		//not zero values a or b
+			if(a>b) {
+				a = a % b;
+			} else {
+				b = b % a;
+			}
+		}
+		a = c * range[i] / (a+b);
+	}
+	
+	
+	return a;
+}
+output.innerHTML = smallestCommons([1, 3]);
+</script>
+</body>
+</html>
